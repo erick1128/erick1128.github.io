@@ -612,8 +612,15 @@ main section h2 {
 .skills-grid .skill-card:nth-child(12) { transition-delay: 0.66s; }
 
 /* About */
+.about {
+  text-align: center;
+}
+.about h2 {
+  margin-inline: auto;
+}
 .about-body {
   max-width: 640px;
+  margin-inline: auto;
   color: var(--text-secondary);
   font-size: 1.05rem;
 }
@@ -625,6 +632,7 @@ main section h2 {
   gap: 2.5rem;
   margin-top: 3.5rem;
   flex-wrap: wrap;
+  transform: translateX(56px);
 }
 
 .about-photo-wrap {
