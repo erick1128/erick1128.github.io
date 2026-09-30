@@ -1,316 +1,1055 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Erick Ordonez — Systems &amp; Automation Developer</title>
-<meta name="description" content="Software designed specifically for your business, built around how you actually work.">
-<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Erick Ordonez, Full-Stack Developer: AI-powered automations, full-stack web applications, API and systems integrations, and custom business tools.">
+<meta property="og:title" content="Erick Ordonez · Full-Stack Developer">
+<meta property="og:description" content="You run the business. I build the systems that keep it running smoothly.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#e2e4e5">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Erick Ordonez · Full-Stack Developer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=9">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --studio-hi:#eeeff0;--studio-lo:#cdd0d2;--ink:#111214;--muted:#50555a;--line:#9ea3a7;
+  --font-display:"Archivo","Helvetica Neue",Arial,sans-serif;--font-mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body{margin:0;background:var(--studio-lo);color:var(--ink);font-family:var(--font-display)}
+.hero{position:relative;height:min(880px,max(680px,94vh));overflow:hidden;
+  background:radial-gradient(120% 90% at 50% 38%,var(--studio-hi) 0%,#e2e4e5 45%,var(--studio-lo) 100%)}
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:22%;
+  background:linear-gradient(180deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.35) 100%);pointer-events:none}
+
+/* Friday: rendered in a big box, then scaled down so he sits smaller and lower */
+.stagewrap{position:absolute;z-index:1;left:72%;bottom:0;width:1180px;height:900px;transform:translateX(-50%) scale(var(--fs,.75));transform-origin:bottom center}
+#stage{position:absolute;inset:0;width:100%!important;height:100%!important;display:block;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+#stage.is-ready{opacity:1}
+.boot{position:absolute;left:72%;top:56%;transform:translate(-50%,-50%);z-index:1;transition:opacity .6s}
+.boot.is-done{opacity:0}
+
+.nav{position:absolute;top:0;left:0;right:0;z-index:3;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:22px 32px}
+.mark{font-weight:700;font-size:14px;letter-spacing:.08em;text-transform:uppercase;font-stretch:115%}
+.lbl{font:500 11px/16px var(--font-mono);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.lbl b{color:var(--ink);font-weight:500}
+.nav .right{justify-self:end;display:flex;gap:22px;align-items:center}
+.nav a{color:inherit;text-decoration:none}
+.navl a:hover{color:var(--ink)}
+html{scroll-behavior:smooth}
+.pill{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);border:1px solid var(--ink);border-radius:999px;padding:9px 18px;background:transparent;cursor:pointer;text-decoration:none;transition:background .2s,color .2s}
+.pill:hover{background:var(--ink);color:var(--studio-hi)}
+.pill:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.pill--solid{background:var(--ink);color:#f3f4f4}
+.pill--solid:hover{background:transparent;color:var(--ink)}
+.dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ink);margin-right:8px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.35}}
+
+/* the two big words */
+.word{position:absolute;z-index:2;margin:0;font-weight:300;font-size:clamp(52px,7.4vw,128px);line-height:.9;letter-spacing:-.055em;white-space:nowrap;cursor:default}
+.word--a{left:32px;top:max(88px,13%)}
+.word--b{left:32px;top:calc(max(88px,13%) + 0.92 * clamp(52px,7.4vw,128px))}
+
+/* letters that unfold upward, one after another */
+.ch{display:inline-block;transform-origin:50% 100%}
+.unfold.is-hidden .ch{opacity:0}
+.unfold.play .ch{animation:unfold .8s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--i) * 42ms + var(--d, 0ms))}
+@keyframes unfold{
+  0%{transform:perspective(500px) rotateX(-100deg) translateY(.08em);opacity:0;color:var(--line)}
+  45%{opacity:1}
+  100%{transform:perspective(500px) rotateX(0);opacity:1;color:inherit}
+}
+/* a glint of light that sweeps across the words */
+.role.shiny{position:relative}
+.shiny::after{content:attr(data-text);position:absolute;left:0;top:0;white-space:nowrap;pointer-events:none;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.75) 47%,rgba(255,255,255,.35) 53%,transparent 65%);
+  background-size:300% 100%;background-position:100% 0;-webkit-background-clip:text;background-clip:text;color:transparent;opacity:0}
+.shiny.shine::after{opacity:1;animation:shine 3.4s cubic-bezier(.45,0,.25,1) forwards}
+@keyframes shine{from{background-position:100% 0}to{background-position:0% 0}}
+
+.foot{position:absolute;z-index:3;left:32px;right:32px;bottom:32px;display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap}
+.roles{display:grid;gap:4px;margin-bottom:14px}
+.role{font-weight:500;font-size:28px;line-height:1.1;letter-spacing:-.02em;margin:0;min-height:1.1em;white-space:nowrap}
+.lead{max-width:36ch;font-size:18px;line-height:1.4;margin:0 0 18px;letter-spacing:-.01em;color:#2a2d31}
+.cta{display:flex;gap:10px;flex-wrap:wrap}
+.hud{position:absolute;z-index:3;display:grid;gap:2px;pointer-events:none;transition:opacity .4s}
+.hud--head{left:calc(72% + 120px);top:34%}
+.hud i{display:block;height:1px;background:var(--line);width:80px;margin-top:8px;margin-left:-92px}
+.hint{position:absolute;z-index:3;left:72%;bottom:22px;transform:translateX(-50%);pointer-events:none;transition:opacity .4s}
+.hero.is-awake .hint{opacity:0}
+.scroll{display:flex;flex-direction:column;align-items:flex-end;gap:10px}
+.scroll span{display:block;width:1px;height:38px;background:linear-gradient(var(--ink),transparent);animation:drop 2.2s ease-in-out infinite;transform-origin:top}
+@keyframes drop{0%{transform:scaleY(0)}50%{transform:scaleY(1)}100%{transform:scaleY(1);opacity:0}}
+
+@media (max-width:1100px){ .hud{display:none} .nav .right .lbl{display:none} }
+@media (max-width:760px){
+  .hero{height:auto;min-height:800px}
+  .nav{padding:16px;grid-template-columns:auto 1fr auto}.nav>.lbl{display:none}.nav .right .lbl{display:none}.mark{grid-column:1}
+  .word{font-size:clamp(46px,14.5vw,80px);font-weight:400}.word--a{left:16px;top:78px}.word--b{left:auto;right:16px;top:136px}
+  .boot{left:50%}
+  .stagewrap{left:50%;top:210px;bottom:auto;width:680px;height:720px;transform:translateX(-50%) scale(.52)!important;transform-origin:top center;
+    -webkit-mask-image:linear-gradient(180deg,#000 80%,transparent 100%);mask-image:linear-gradient(180deg,#000 80%,transparent 100%)}
+  .boot{top:380px}
+  .hint{display:none}
+  .foot{left:16px;right:16px;bottom:18px}.scroll{display:none}
+  .role{font-size:22px}
+  .lead{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.dot,.scroll span{animation:none}}
+
+/* ================= WORK: case study + how it works ================= */
+.work{position:relative;background:linear-gradient(180deg,var(--studio-lo) 0%,#e4e5e6 18%,#e9eaeb 100%);padding:120px 32px 140px;color:var(--ink)}
+.work__inner{max-width:1200px;margin:0 auto}
+.work__head{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end}
+.big{font-weight:300;font-size:clamp(56px,9vw,150px);line-height:.9;letter-spacing:-.055em;margin:14px 0 0;white-space:nowrap}
+.big s{text-decoration-thickness:.06em;color:var(--line)}
+.story{display:grid;gap:14px;max-width:44ch;margin:0;padding:0;list-style:none}
+.story li{display:grid;grid-template-columns:92px 1fr;gap:12px;font-size:18px;line-height:1.4;padding-top:14px;border-top:1px solid rgba(17,18,20,.14)}
+.story .lbl{padding-top:4px}
+
+.how{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:64px;margin-top:120px}
+.how__stage{position:sticky;top:max(24px,calc(50vh - 260px));height:520px}
+.how__steps{display:grid}
+.step{min-height:78vh;display:flex;flex-direction:column;justify-content:center;gap:12px;opacity:.28;transition:opacity .5s}
+.step.is-on{opacity:1}
+.step h3{font-weight:400;font-size:clamp(28px,3.2vw,44px);line-height:1.05;letter-spacing:-.03em;margin:0}
+.step p{margin:0;font-size:18px;line-height:1.45;max-width:40ch;color:#2a2d31}
+.step .num{font:500 11px/16px var(--font-mono);letter-spacing:.16em;color:var(--muted)}
+.how__cta{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-top:40px}
+
+/* the black "screen" */
+.screen{--bg:#0b0c0e;--fg:#e9eaeb;--dim:#9aa0a6;--edge:rgba(255,255,255,.1);--hi:#9fd0ee;
+  position:relative;height:100%;background:radial-gradient(120% 80% at 30% 0%,#1a1c1f 0%,var(--bg) 60%);border-radius:26px;
+  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 40px 80px rgba(0,0,0,.25);color:var(--fg);overflow:hidden;font-family:var(--font-display)}
+.screen__bar{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid var(--edge);font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.timer{display:flex;gap:12px;align-items:baseline}
+.timer b{font:500 20px/1 var(--font-mono);color:var(--fg);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+.timer s{color:#6b7076}
+.screen__body{position:absolute;inset:60px 0 0 0;padding:22px}
+
+/* email card */
+.mail{position:absolute;left:22px;right:22px;top:22px;background:#15171a;border:1px solid var(--edge);border-radius:16px;padding:18px 20px;
+  transform:translateY(-120%);opacity:0;transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .6s,top .8s cubic-bezier(.2,.8,.2,1),transform-origin .1s}
+.screen[data-step] .mail{transform:none;opacity:1}
+.mail__meta{display:grid;gap:4px;font:400 12px/18px var(--font-mono);color:var(--dim);padding-bottom:12px;border-bottom:1px solid var(--edge);margin-bottom:12px}
+.mail__meta b{color:var(--fg);font-weight:500}
+.mail p{margin:0 0 6px;font-size:15px;line-height:1.55;color:#c9ccd0}
+.f{position:relative;border-radius:4px;padding:0 2px;transition:box-shadow .5s,background .5s,color .5s}
+.screen[data-step="2"] .f--k,.screen[data-step="3"] .f--k,.screen[data-step="4"] .f--k,.screen[data-step="5"] .f--k{box-shadow:0 0 0 1px var(--hi);background:rgba(159,208,238,.12);color:#fff}
+.f--p::after{content:"";position:absolute;left:-1px;right:-1px;top:2px;bottom:2px;background:#e9eaeb;border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.6,0,.2,1)}
+.screen[data-step="4"] .f--p::after,.screen[data-step="5"] .f--p::after{transform:scaleX(1);background:#000;box-shadow:0 0 0 1px #3a3d42}
+
+/* extracted fields */
+.fields{position:absolute;left:22px;right:22px;bottom:22px;display:grid;grid-template-columns:1fr 1fr;gap:8px;opacity:0;transform:translateY(16px);transition:opacity .6s .3s,transform .6s .3s}
+.screen[data-step="2"] .fields{opacity:1;transform:none}
+.field{border:1px solid var(--edge);border-radius:10px;padding:10px 12px;background:rgba(255,255,255,.03)}
+.field span{display:block;font:500 10px/14px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.field b{font-weight:500;font-size:16px}
+.badge{position:absolute;right:22px;top:14px;font:500 10px/14px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;padding:5px 10px;border-radius:999px;border:1px solid var(--edge);color:var(--dim);opacity:0;transition:opacity .4s}
+.screen[data-step="4"] .badge--pii{opacity:1;color:var(--fg);border-color:#555a60}
+
+/* carriers + report */
+.out{position:absolute;inset:22px;display:grid;grid-template-rows:auto auto;align-content:start;gap:14px;opacity:0;transform:translateY(20px);transition:opacity .6s,transform .6s;pointer-events:none}
+.screen[data-step="5"] .out{opacity:1;transform:none}
+.screen[data-step="5"] .mail{top:-400px;opacity:0}
+.carriers{display:grid;gap:8px}
+.carrier{display:flex;justify-content:space-between;align-items:center;border:1px solid var(--edge);border-radius:12px;padding:11px 14px;font-size:15px;background:rgba(255,255,255,.03)}
+.carrier em{font:500 11px/16px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;font-style:normal;color:var(--dim)}
+.screen[data-step="5"] .carrier em{animation:sent .4s both;animation-delay:calc(var(--k) * 350ms + 500ms)}
+@keyframes sent{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none;color:#e9eaeb}}
+.report{border-radius:14px;background:#e9eaeb;color:#0b0c0e;padding:16px 18px;display:grid;gap:10px;align-content:start;opacity:0;transform:scale(.97);transition:opacity .5s 2.1s,transform .5s 2.1s}
+.screen[data-step="5"] .report{opacity:1;transform:none}
+.report .lbl{color:#50555a}
+.bars{display:grid;gap:7px}
+.bar{display:grid;grid-template-columns:78px 1fr 52px;gap:10px;align-items:center;font:500 12px/16px var(--font-mono)}
+.bar i{display:block;height:8px;border-radius:4px;background:#0b0c0e;width:0;transition:width .9s cubic-bezier(.2,.8,.2,1) 2.4s}
+.screen[data-step="5"] .bar i{width:var(--w)}
+.bar span:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.ready{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase}
+/* CRM contact card */
+.crm{position:absolute;left:22px;right:22px;bottom:22px;border:1px solid var(--edge);border-radius:14px;background:rgba(255,255,255,.04);padding:14px 16px;display:grid;gap:10px;
+  opacity:0;transform:translateY(16px);transition:opacity .6s .2s,transform .6s .2s}
+.screen[data-step="3"] .crm,.screen[data-step="4"] .crm{opacity:1;transform:none}
+.crm__top{display:flex;justify-content:space-between;align-items:center;font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.crm__top b{color:var(--fg);font-weight:500}
+.crm__ok{opacity:0;transition:opacity .4s .9s}
+.screen[data-step="3"] .crm__ok,.screen[data-step="4"] .crm__ok{opacity:1}
+.crm__rows{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.crm__rows div{display:grid;gap:2px}
+.crm__rows span{font:500 10px/14px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
+.crm__rows b{font-weight:500;font-size:15px}
+.crm__note{font:500 10px/14px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim);opacity:0;transition:opacity .4s}
+.screen[data-step="4"] .crm__note{opacity:1}
+
+@media (max-width:900px){
+  .work{padding:90px 16px 100px}
+  .work__head{grid-template-columns:1fr;gap:28px}
+  .how{grid-template-columns:1fr;gap:0;margin-top:70px}
+  .how__stage{top:12px;height:430px;z-index:2}
+  .step{min-height:70vh;justify-content:flex-end;padding-bottom:12vh}
+  .step p{font-size:16px}
+  .story li{grid-template-columns:1fr;gap:4px}
+  .mail p{font-size:13px}
+  .field b{font-size:14px}
+  .how__stage{height:460px}
+  .screen__body{padding:14px}.mail{left:14px;right:14px;top:14px;padding:14px 16px}.fields{left:14px;right:14px;bottom:14px}
+  .fields .field:nth-child(n+3){display:none}
+  .crm{left:14px;right:14px;bottom:14px;padding:12px 14px}.crm__rows{grid-template-columns:1fr 1fr}.crm__rows div:nth-child(3){display:none}
+  .badge{position:static;display:inline-block;margin-top:8px}
+}
+@media (prefers-reduced-motion:reduce){.mail,.fields,.crm,.out,.report,.bar i,.f--p::after{transition:none}.screen[data-step="5"] .carrier em{animation:none}}
+
+/* ================= CASE 002: the question answering robot, over the storm ================= */
+.case2{--n-ink:#eef0f1;--n-muted:#aeb4ba;--n-line:rgba(238,240,241,.16);
+  position:relative;background:#050608;color:var(--n-ink);overflow:hidden;isolation:isolate;padding:120px 32px 120px}
+.case2__bg{position:absolute;inset:0;z-index:-2}
+.case2__bg video{width:100%;height:100%;object-fit:cover;object-position:60% 50%;display:block;filter:brightness(1.35) contrast(1.05)}
+.case2::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(5,6,8,.9) 0%,rgba(5,6,8,.7) 38%,rgba(5,6,8,.12) 70%,rgba(5,6,8,.2) 100%),
+             linear-gradient(180deg,rgba(5,6,8,.85) 0%,rgba(5,6,8,0) 16%,rgba(5,6,8,0) 80%,rgba(5,6,8,.95) 100%)}
+.case2__inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.95fr);gap:64px;align-items:start}
+.case2__copy{display:grid;gap:20px;max-width:560px}
+.case2 .lbl{color:var(--n-muted)}
+.case2 .lbl b{color:var(--n-ink)}
+.case2 h2{font-weight:300;font-size:clamp(40px,5vw,72px);line-height:.96;letter-spacing:-.045em;margin:0}
+.case2 p{margin:0;font-size:18px;line-height:1.5;color:#c9ced3;max-width:46ch}
+.case2 p strong{color:var(--n-ink);font-weight:500}
+.case2 p.okc{font-size:15px;color:var(--n-ink);border:1px solid var(--n-line);border-radius:12px;padding:10px 14px;background:rgba(255,255,255,.04)}
+.think{display:grid;gap:0;list-style:none;margin:6px 0 0;padding:0;counter-reset:t}
+.think li{display:grid;grid-template-columns:40px 1fr;gap:2px 12px;padding:14px 0;border-top:1px solid var(--n-line)}
+.think li:last-child{border-bottom:1px solid var(--n-line)}
+.think .lbl{grid-row:span 2;padding-top:4px}
+.think b{font-weight:500;font-size:18px}
+.think span.d{font-size:15px;line-height:1.45;color:var(--n-muted)}
+.why{font-size:17px!important;color:var(--n-ink)!important;border-left:0;padding:0}
+.result{display:flex;gap:28px;align-items:flex-end;flex-wrap:wrap;padding-top:6px}
+.result b{display:block;font-weight:300;font-size:clamp(40px,4.4vw,60px);letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.result s{color:#6d737a;text-decoration-thickness:3px}
+
+/* the demo screen, styled like Case 001's sample request screen */
+.rag{position:sticky;top:max(40px,calc(50vh - 290px));height:auto;min-height:540px;display:flex;flex-direction:column;
+  background:radial-gradient(120% 80% at 30% 0%,rgba(26,28,31,.92) 0%,rgba(11,12,14,.9) 60%);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.rag__body{padding:22px;display:grid;gap:14px;flex:1;align-content:start}
+.card{background:#15171a;border:1px solid var(--edge);border-radius:16px;padding:16px 18px;transition:opacity .45s,transform .45s}
+.card .k{display:block;font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-bottom:8px}
+.rag__q p{margin:0;font-size:17px;line-height:1.45;color:var(--fg)}
+.rag__steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.rag__steps li{font:500 10px/14px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:#6b7076;border:1px solid var(--edge);border-radius:10px;padding:9px 10px;transition:color .3s,border-color .3s,background .3s}
+.rag__steps li.on{color:var(--fg);border-color:var(--hi);background:rgba(159,208,238,.1)}
+.rag__steps li.done{color:var(--fg)}
+.rag__steps li.skip{color:#4b5056;text-decoration:line-through}
+.rag__a .big-a{margin:0;font-weight:300;font-size:30px;line-height:1.1;letter-spacing:-.02em;color:#fff}
+.rag__a .note{margin:8px 0 0;font-size:15px;line-height:1.45;color:#c9ccd0}
+.ev{display:grid;gap:6px;margin-top:14px;padding-top:12px;border-top:1px solid var(--edge)}
+.ev div{display:flex;justify-content:space-between;gap:10px;font:400 12px/18px var(--font-mono);color:var(--dim)}
+.ev div b{color:var(--fg);font-weight:500}
+.is-hid{opacity:0;transform:translateY(8px)}
+.rag__foot{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 22px;border-top:1px solid var(--edge)}
+.redact{display:inline-block;background:#000;color:transparent;border-radius:3px;box-shadow:0 0 0 1px #3a3d42;user-select:none}
+.case2__btn{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--fg);background:transparent;border:1px solid var(--edge);border-radius:999px;padding:6px 12px;cursor:pointer}
+.case2__btn:hover{border-color:var(--fg)}
+.case2__btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+@media (max-width:900px){
+  .case2{padding:80px 16px 90px}
+  .case2::before{background:linear-gradient(180deg,rgba(5,6,8,.35) 0%,rgba(5,6,8,.8) 30%,rgba(5,6,8,.92) 100%)}
+  .case2__inner{grid-template-columns:1fr;gap:36px}
+  .rag{position:relative;top:auto;min-height:520px}
+  .rag__steps{grid-template-columns:1fr 1fr}
+  .rag__a .big-a{font-size:24px}
+  .case2 p{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.card,.rag__steps li{transition:none}}
+
+/* ================= MEET THE HUMAN (typing video) ================= */
+.human{--n-bg:#07080a;--n-ink:#eceeee;--n-muted:#a3a9ae;--n-line:rgba(236,238,238,.18);
+  position:relative;overflow:hidden;background:var(--n-bg);color:var(--n-ink);min-height:640px;display:grid;align-items:center;isolation:isolate}
+.human__media{position:absolute;top:0;right:0;bottom:0;width:70%;container-type:size;overflow:hidden;z-index:-1;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 32%);mask-image:linear-gradient(90deg,transparent 0%,#000 32%)}
+.human__frame{position:absolute;left:50%;top:50%;width:max(100cqw,120cqh);aspect-ratio:16/9;transform:translate(-50%,-50%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 18%,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 18%,#000 82%,transparent 100%)}
+.human__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.human__target{position:absolute;left:48.5%;top:5%;width:17%;height:40%}
+.human__target::before,.human__target::after{content:"";position:absolute;width:16px;height:16px;border:1.5px solid rgba(236,238,238,.75)}
+.human__target::before{left:0;top:0;border-right:0;border-bottom:0}
+.human__target::after{right:0;bottom:0;border-left:0;border-top:0}
+.human__target .lbl{position:absolute;left:calc(100% + 14px);top:0;color:var(--n-muted);white-space:nowrap;animation:human-blink 4s steps(1) infinite}
+.human__target .lbl b{color:var(--n-ink)}
+@keyframes human-blink{0%,92%{opacity:1}93%,96%{opacity:.2}}
+.human__rec{position:absolute;right:32px;top:28px;color:var(--n-muted);display:flex;align-items:center;gap:8px}
+.human__recdot{width:8px;height:8px;border-radius:50%;background:#e5484d;animation:pulse 1.6s ease-in-out infinite}
+.human__copy{position:relative;max-width:560px;padding:96px 32px 84px;display:grid;gap:16px;margin-left:max(0px,calc((100vw - 1200px) / 2))}
+.human .lbl{color:var(--n-muted)}
+.human h2{font-weight:300;font-size:clamp(40px,5vw,72px);line-height:.96;letter-spacing:-.045em;margin:0 0 4px}
+.human__copy p{margin:0;color:var(--n-muted);font-size:18px;line-height:1.5;max-width:50ch}
+.facts{list-style:none;margin:10px 0 0;padding:0;border-top:1px solid var(--n-ink)}
+.facts li{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--n-line);flex-wrap:wrap}
+.facts li span:last-child{color:var(--n-ink);text-align:right}
+.human__controls{position:absolute;right:28px;bottom:26px;display:flex;gap:8px}
+.human__btn{display:inline-flex;align-items:center;gap:8px;font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--n-ink);background:rgba(7,8,10,.5);border:1px solid var(--n-line);border-radius:999px;padding:7px 14px;cursor:pointer;backdrop-filter:blur(6px)}
+.human__btn:hover{border-color:var(--n-ink)}
+.human__btn:focus-visible{outline:2px solid var(--n-ink);outline-offset:2px}
+.human__eq{display:inline-flex;align-items:flex-end;gap:2px;height:10px}
+.human__eq i{width:2px;height:3px;background:currentColor;border-radius:1px}
+.human__btn[aria-pressed="true"] .human__eq i{animation:human-eq .9s ease-in-out infinite}
+.human__btn[aria-pressed="true"] .human__eq i:nth-child(2){animation-delay:.25s}.human__btn[aria-pressed="true"] .human__eq i:nth-child(3){animation-delay:.5s}
+@keyframes human-eq{50%{height:10px}}
+@media (max-width:900px){
+  .human{min-height:0;align-items:start}
+  .human__media{position:relative;width:100%;height:min(62vw,440px);-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 70%,transparent 100%)}
+  .human__frame{width:max(100cqw,177.78cqh);-webkit-mask-image:none;mask-image:none}
+  .human__copy{padding:0 16px 96px;max-width:none;margin:0}
+  .human__rec{right:16px;top:calc(min(62vw,440px) - 28px)}
+  .human__target .lbl{display:none}
+  .human__controls{right:16px;bottom:20px}
+  .human__copy p{font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){.human__recdot,.human__target .lbl{animation:none}}
+
+/* ================= SERVICES ================= */
+.svc{background:linear-gradient(180deg,#e9eaeb 0%,#e3e4e6 100%);color:var(--ink);padding:120px 32px 110px}
+.svc__inner{max-width:1200px;margin:0 auto}
+.svc__head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;flex-wrap:wrap;margin-bottom:48px}
+.svc h2{font-weight:300;font-size:clamp(44px,6vw,96px);line-height:.92;letter-spacing:-.05em;margin:12px 0 0}
+.svc__head p{max-width:36ch;font-size:18px;line-height:1.45;margin:0;color:#2a2d31}
+.svc__list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.svc__row{display:grid;grid-template-columns:70px minmax(0,1.1fr) minmax(0,1fr) auto;gap:24px;align-items:center;padding:30px 18px;border-bottom:1px solid rgba(17,18,20,.16);
+  transition:background .35s,color .35s;border-radius:0}
+.svc__row:hover{background:#0b0c0e;color:#eef0f1}
+.svc__row:hover .lbl,.svc__row:hover p{color:#aeb4ba}
+.svc__row h3{margin:0;font-weight:400;font-size:clamp(26px,3vw,40px);letter-spacing:-.03em;line-height:1.05}
+.svc__row p{margin:0;font-size:17px;line-height:1.45;color:#2a2d31;transition:color .35s}
+.svc__row .tag{font:500 10px/14px var(--font-mono);letter-spacing:.12em;text-transform:uppercase;border:1px solid currentColor;border-radius:999px;padding:5px 10px;white-space:nowrap;text-decoration:none;color:inherit;opacity:.75}
+.svc__row .tag:hover{opacity:1}
+.svc__row .tag:focus-visible{outline:2px solid currentColor;outline-offset:2px}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:72px;border-top:1px solid rgba(17,18,20,.16)}
+.steps4 li{list-style:none;padding:22px 20px 0 0;display:grid;gap:8px}
+.steps4 li+li{padding-left:20px;border-left:1px solid rgba(17,18,20,.16)}
+.steps4 b{font-weight:400;font-size:22px;letter-spacing:-.02em}
+.steps4 span.d{font-size:15px;line-height:1.45;color:#3b3f44}
+.steps4-wrap{margin:0;padding:0}
+
+/* ================= CONTACT ================= */
+.contact{background:radial-gradient(120% 90% at 50% 20%,var(--studio-hi) 0%,#e2e4e5 50%,var(--studio-lo) 100%);color:var(--ink);padding:130px 32px 96px;position:relative;overflow:hidden}
+.contact__inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:64px;align-items:end}
+.contact h2{font-weight:300;font-size:clamp(52px,8vw,140px);line-height:.9;letter-spacing:-.055em;margin:14px 0 22px}
+.contact p{margin:0 0 26px;font-size:19px;line-height:1.45;max-width:38ch;color:#2a2d31}
+.rows{border-top:1px solid var(--ink)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0;border-bottom:1px solid rgba(17,18,20,.16);flex-wrap:wrap}
+.row .v{font-size:19px;user-select:all;word-break:break-all}
+.row a.v{color:inherit;text-decoration:none;border-bottom:1px solid currentColor}
+.copy{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;background:none;border:1px solid var(--ink);color:var(--ink);border-radius:999px;padding:6px 12px;cursor:pointer}
+.copy:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+.foot2{max-width:1200px;margin:110px auto 0;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:18px;border-top:1px solid rgba(17,18,20,.16)}
+
+/* ================= FRIDAY CHAT ================= */
+.askf{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:40;display:flex;align-items:center;gap:10px;
+  font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:#eef0f1;background:#0b0c0e;border:1px solid #2a2d31;border-radius:999px;padding:11px 18px 11px 12px;cursor:pointer;
+  box-shadow:0 14px 40px rgba(0,0,0,.25);transform:translateY(90px);opacity:0;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .45s}
+.askf.show{transform:none;opacity:1}
+.askf:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.askf__face{width:22px;height:26px;border-radius:50% / 45%;background:radial-gradient(60% 50% at 35% 30%,#6c7076 0%,#111 60%);box-shadow:inset 0 0 0 1px #3a3d42}
+.chat{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:50;width:min(400px,calc(100vw - 32px));height:min(600px,calc(100dvh - 40px));
+  display:grid;grid-template-rows:auto 1fr auto;background:radial-gradient(120% 80% at 30% 0%,#1a1c1f 0%,#0b0c0e 60%);color:#e9eaeb;border:1px solid rgba(255,255,255,.1);border-radius:22px;
+  box-shadow:0 40px 90px rgba(0,0,0,.4);overflow:hidden;animation:chat-in .25s ease}
+@keyframes chat-in{from{opacity:0;transform:translateY(10px)}}
+.chat__bar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px 14px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.chat__bar b{font-weight:500;font-size:16px;letter-spacing:-.01em;display:block}
+.chat__bar .lbl{color:#9aa0a6}
+.chat__x{width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:none;color:#e9eaeb;font-size:18px;cursor:pointer}
+.chat__x:focus-visible,.chip:focus-visible,.chat__send:focus-visible,.chat__in:focus-visible{outline:2px solid #e9eaeb;outline-offset:2px}
+.chat__log{overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;overscroll-behavior:contain}
+.cm{max-width:88%;border-radius:14px;padding:11px 14px;font-size:15px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.cm--f{align-self:flex-start;background:#15171a;border:1px solid rgba(255,255,255,.1)}
+.cm--f .k{display:block;font:500 10px/14px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:#9aa0a6;margin-bottom:4px}
+.cm--u{align-self:flex-end;background:#e9eaeb;color:#0b0c0e}
+.cm--t{align-self:flex-start;font:500 10px/14px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;color:#9aa0a6;padding:4px 2px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 10px/14px var(--font-mono);letter-spacing:.1em;text-transform:uppercase;color:#e9eaeb;background:none;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:7px 11px;cursor:pointer;text-align:left}
+.chip:hover{border-color:#e9eaeb}
+.chat__foot{border-top:1px solid rgba(255,255,255,.1);padding:10px;display:grid;gap:6px}
+.chat__form{display:flex;gap:8px}
+.chat__in{flex:1;min-width:0;font:400 15px/20px var(--font-display);color:#e9eaeb;background:#15171a;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:10px 14px}
+.chat__send{font:500 11px/16px var(--font-mono);letter-spacing:.14em;text-transform:uppercase;background:#e9eaeb;color:#0b0c0e;border:0;border-radius:999px;padding:0 16px;cursor:pointer}
+.chat__send:disabled{opacity:.5}
+.chat__note{margin:0;font-size:12px;line-height:16px;color:#8d9399;text-align:center}
+
+@media (max-width:900px){
+  .svc{padding:90px 16px 80px}
+  .svc__row{grid-template-columns:40px 1fr;gap:6px 14px;padding:22px 6px}
+  .svc__row p,.svc__row .tag{grid-column:2}
+  .svc__row .tag{justify-self:start;margin-top:6px}
+  .steps4{grid-template-columns:1fr 1fr}.steps4 li:nth-child(3){border-left:0;padding-left:0}.steps4 li{padding-bottom:18px}
+  .contact{padding:90px 16px 28px}
+  .contact__inner{grid-template-columns:1fr;gap:28px}
+  .contact p{font-size:17px}
+  .foot2{margin-top:70px}
+}
+@media (prefers-reduced-motion:reduce){.askf,.svc__row,.chat{transition:none;animation:none}}
+
+/* ================= SCREEN TYPE: body font everywhere on the black screens ================= */
+.screen .screen__bar,.screen .mail__meta,.screen .field span,.screen .badge,.screen .carrier em,.screen .bar,.screen .ready,
+.screen .crm__top,.screen .crm__rows span,.screen .crm__note,.screen .card .k,.screen .rag__steps li,.screen .ev div,.screen .lbl,.screen .case2__btn,.screen .report .lbl{
+  font-family:var(--font-display);text-transform:none;letter-spacing:0;font-weight:500}
+.screen .screen__bar{font-size:14px;line-height:20px;color:#b3b8bd}
+.screen .mail__meta{font-size:14px;line-height:21px;font-weight:400}
+.screen .field span,.screen .crm__rows span,.screen .card .k{font-size:12.5px;line-height:17px;color:#9aa0a6}
+.screen .badge,.screen .crm__note,.screen .ready{font-size:12.5px;line-height:17px}
+.screen .carrier em{font-size:13.5px}
+.screen .bar{font-size:13px;font-weight:500}
+.screen .rag__steps li{font-size:13px;line-height:17px}
+.screen .ev div{font-size:13.5px;line-height:19px}
+.screen .lbl,.screen .case2__btn{font-size:13px;line-height:18px}
+.timer b{font-family:var(--font-display);font-size:24px;font-weight:500;letter-spacing:-.01em}
+.timer s{font-family:var(--font-display);font-size:15px;font-weight:400}
+.step .num{font:500 14px/20px var(--font-display);letter-spacing:0;text-transform:none;color:#50555a}
+
+/* ================= BEFORE CODE: BASEBALL ================= */
+.bball{--n-ink:#f3efe9;--n-muted:#c9c0b6;--n-line:rgba(243,239,233,.2);position:relative;overflow:hidden;isolation:isolate;background:#0d0a08;color:var(--n-ink);padding:120px 32px 120px}
+.bball__bg{position:absolute;top:0;right:0;bottom:0;width:64%;z-index:-2;-webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 30%);mask-image:linear-gradient(90deg,transparent 0%,#000 30%)}
+.bball__bg img{width:100%;height:100%;object-fit:cover;object-position:52% 35%;display:block}
+.bball::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(13,10,8,0) 0%,rgba(13,10,8,0) 60%,rgba(13,10,8,.25) 100%),
+             linear-gradient(180deg,rgba(13,10,8,0) 0%,rgba(13,10,8,0) 80%,rgba(13,10,8,.5) 100%)}
+.bball__inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:64px;align-items:end}
+.bball__copy{display:grid;gap:18px;max-width:540px}
+.bball .lbl{color:var(--n-muted)}
+.bball h2{font-weight:300;font-size:clamp(44px,5.6vw,84px);line-height:.94;letter-spacing:-.045em;margin:0}
+.bball p{margin:0;font-size:18px;line-height:1.5;color:#ddd5cb;max-width:46ch}
+.career{list-style:none;margin:8px 0 0;padding:0;border-top:1px solid var(--n-ink)}
+.career li{display:grid;grid-template-columns:40px 1fr auto;gap:2px 14px;align-items:baseline;padding:16px 0;border-bottom:1px solid var(--n-line)}
+.career b{font-weight:500;font-size:20px;letter-spacing:-.01em}
+.career .d{grid-column:2;font-size:15px;color:var(--n-muted)}
+.career .yrs{grid-row:1;grid-column:3;font-size:15px;color:var(--n-muted);white-space:nowrap}
+.career .aa{grid-column:2 / 4;justify-self:start;margin-top:8px;font-size:13px;font-weight:500;color:#0d0a08;background:#f3efe9;border-radius:999px;padding:5px 12px}
+.bball__stats{display:flex;gap:40px;flex-wrap:wrap;margin-top:6px}
+.bball__stats b{display:block;font-weight:300;font-size:44px;letter-spacing:-.04em;line-height:1}
+.reel{position:relative;border-radius:22px;overflow:hidden;background:#000;box-shadow:0 30px 80px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.12);aspect-ratio:16/9}
+.reel video{width:100%;height:100%;object-fit:cover;display:block;transition:opacity .5s}
+.reel__cap{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;
+  background:linear-gradient(180deg,transparent,rgba(0,0,0,.75));font-size:14px;color:#f3efe9}
+.reel__dots{display:flex;gap:6px}
+.reel__dots i{width:18px;height:3px;border-radius:2px;background:rgba(255,255,255,.35)}
+.reel__dots i.on{background:#fff}
+.reel__btn{font:500 13px/18px var(--font-display);color:#f3efe9;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.25);border-radius:999px;padding:5px 12px;cursor:pointer}
+.reel__btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.bball__side{display:grid;gap:12px}
+@media (max-width:900px){
+  .bball{padding:0 16px 90px}
+  .bball__bg{position:relative;inset:auto;width:auto;height:min(112vw,560px);margin:0 -16px;-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,#000 62%,transparent 100%)}
+  .bball::before{display:none}
+  .bball__inner{grid-template-columns:1fr;gap:36px;margin-top:-40px;position:relative}
+  .bball p{font-size:16px}
+  .career li{grid-template-columns:32px 1fr}.career .yrs{grid-row:auto;grid-column:2}
+}
+
+/* ================= ONE TYPEFACE: labels, buttons and tags use the body font ================= */
+:root{--font-mono:var(--font-display)}
+.lbl{font:500 13px/18px var(--font-display);letter-spacing:0;text-transform:none}
+.pill,.tag,.copy,.chip,.askf,.human__btn,.case2__btn,.reel__btn,.chat__send,.eyebrow{letter-spacing:0!important;text-transform:none!important;font-family:var(--font-display)!important}
+.pill{font-size:14px;font-weight:500}
+.svc__row .tag{font-size:12.5px;font-weight:500}
+.copy,.human__btn,.case2__btn,.reel__btn,.askf,.chat__send{font-size:13px}
+.chip{font-size:12.5px}
+.cm--f .k,.cm--t{font-family:var(--font-display);letter-spacing:0;text-transform:none;font-size:12.5px}
+.stats .lbl,.result .lbl,.bball__stats .lbl{font-size:13px}
+</style>
 </head>
 <body>
-<div class="site-particle-field" id="site-particle-field" aria-hidden="true"></div>
-<a class="skip-link" href="#main">Skip to content</a>
 
-<header class="site-header">
-  <nav class="navbar" aria-label="Primary">
-    <a class="logo" href="#hero">Erick Ordonez</a>
-    <ul class="nav-links" id="nav-links">
-      <li><a href="#work">Work</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <a class="btn btn-nav-cta" href="#contact">Get in touch</a>
-    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-links" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
+
+<section class="hero" aria-label="Intro">
+  <nav class="nav">
+    <span class="lbl"><span class="dot"></span>Available for work</span>
+    <span class="mark">Erick Ordonez</span>
+    <div class="right"><span class="lbl navl"><a href="#work">Work</a> · <a href="#services">Services</a> · <a href="#about">About</a> · <a href="#contact">Contact</a></span><a class="pill" href="#chat">Talk to Friday</a></div>
   </nav>
-</header>
 
-<main id="main">
+  <h1 class="sr">Erick Ordonez, Full-Stack Developer: AI-powered automations, full-stack web applications, API and systems integrations, custom business tools.</h1>
+  <p class="word word--a unfold shiny" aria-hidden="true" data-text="Full-Stack">Full-Stack</p>
+  <p class="word word--b unfold shiny" aria-hidden="true" data-text="Developer.">Developer.</p>
 
-  <section id="hero" class="hero" aria-labelledby="hero-heading">
-    <div class="hero-glow" aria-hidden="true"></div>
+  <div class="stagewrap"><canvas id="stage" aria-label="Friday, Erick's glossy black robot. Hover over him and he looks at you." role="img"></canvas></div>
+  <div class="boot lbl" id="boot">Booting Friday…</div>
 
-    <div class="hub-graphic" aria-hidden="true">
-      <svg class="connector-lines" viewBox="0 0 400 400" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="lineGradTop" x1="200" y1="200" x2="200" y2="20" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF7A2E" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#FF7A2E" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="lineGradRight" x1="200" y1="200" x2="380" y2="200" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF7A2E" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#FF7A2E" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="lineGradBottom" x1="200" y1="200" x2="200" y2="380" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF7A2E" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#FF7A2E" stop-opacity="0"/>
-          </linearGradient>
-          <linearGradient id="lineGradLeft" x1="200" y1="200" x2="20" y2="200" gradientUnits="userSpaceOnUse">
-            <stop offset="0%" stop-color="#FF7A2E" stop-opacity="0.55"/>
-            <stop offset="100%" stop-color="#FF7A2E" stop-opacity="0"/>
-          </linearGradient>
-        </defs>
-        <line x1="200" y1="200" x2="200" y2="20" stroke="url(#lineGradTop)" stroke-width="1.5"/>
-        <line x1="200" y1="200" x2="380" y2="200" stroke="url(#lineGradRight)" stroke-width="1.5"/>
-        <line x1="200" y1="200" x2="200" y2="380" stroke="url(#lineGradBottom)" stroke-width="1.5"/>
-        <line x1="200" y1="200" x2="20" y2="200" stroke="url(#lineGradLeft)" stroke-width="1.5"/>
-      </svg>
+  <div class="hud hud--head lbl"><span>Unit: <b>Friday</b></span><span>Status: <b id="status">Hover me</b></span></div>
 
-      <div class="hub-node hub-center">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3.5"/>
-          <path d="M12 2v3M12 19v3M22 12h-3M5 12H2M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1M18.4 18.4l-2.1-2.1M7.7 7.7L5.6 5.6"/>
-        </svg>
+  <div class="foot">
+    <div>
+      <div class="roles">
+        <span class="lbl">What I do</span>
+        <p class="role unfold shiny" id="role" aria-hidden="true" data-text="AI-Powered Automations">AI-Powered Automations</p>
       </div>
-
-      <div class="hub-node node-top">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <path d="M3 7l9 6 9-6"/>
-        </svg>
+      <p class="lead">You run the business. I build the systems, from custom apps to automated workflows, that keep it running smoothly.</p>
+      <div class="cta"><a class="pill pill--solid" href="#contact">Book a call</a><a class="pill" href="#work">See the work</a></div>
+    </div>
+    <div class="scroll lbl">Scroll<span></span></div>
+  </div>
+</section>
+<section class="work" id="work" aria-labelledby="work-title">
+  <div class="work__inner">
+    <div class="work__head">
+      <div>
+        <span class="lbl">Case 001 · Insurance agency · Live</span>
+        <h2 class="sr" id="work-title">RFP intake automation: from 30 minutes to 5 minutes per case</h2>
+        <p class="big unfold" id="big" aria-hidden="true"><s>30</s> → 5 min</p>
       </div>
-
-      <div class="hub-node node-right">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <ellipse cx="12" cy="6" rx="7" ry="3"/>
-          <path d="M5 6v6c0 1.7 3.1 3 7 3s7-1.3 7-3V6"/>
-          <path d="M5 12v6c0 1.7 3.1 3 7 3s7-1.3 7-3v-6"/>
-        </svg>
-      </div>
-
-      <div class="hub-node node-bottom">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/>
-        </svg>
-      </div>
-
-      <div class="hub-node node-left">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M9 15l6-6"/>
-          <path d="M11 6l1.5-1.5a3.5 3.5 0 0 1 5 5L16 11"/>
-          <path d="M13 18l-1.5 1.5a3.5 3.5 0 0 1-5-5L8 13"/>
-        </svg>
-      </div>
-
-      <div class="particle-field" id="particle-field"></div>
+      <ul class="story">
+        <li><span class="lbl">Problem</span><span>Every request for a quote took about 30 minutes of reading emails, copying details and contacting carriers by hand.</span></li>
+        <li><span class="lbl">Built</span><span>A system that reads each broker email the moment it lands and does the busywork on its own.</span></li>
+        <li><span class="lbl">Result</span><span>About 5 minutes per case. The team spends the rest of the time with clients.</span></li>
+      </ul>
     </div>
 
-    <div class="hero-content">
-      <p class="eyebrow"><span class="dot" aria-hidden="true">●</span> SYSTEMS &amp; AUTOMATION</p>
-      <h1 id="hero-heading">I build software. You focus on your business.</h1>
-      <p class="hero-sub">Software designed specifically for your business, built around how you actually work.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-primary" href="#work">See the work</a>
-        <a class="btn btn-secondary" href="#contact">Get in touch</a>
+    <div class="how">
+      <div class="how__stage">
+        <div class="screen" id="screen" role="img" aria-label="Animated example of the system handling a sample request, step by step">
+          <div class="screen__bar"><span>Sample request</span><span class="timer"><s>30:00</s><b id="clock">00:00</b></span></div>
+          <div class="screen__body">
+            <div class="mail">
+              <div class="mail__meta"><span>From <b>broker@example.com</b></span><span>Subject <b>New quote request, group health</b></span></div>
+              <p>Hi team, requesting quotes for <span class="f f--k">Harbor Tile Co.</span>, <span class="f f--k">42 employees</span>, effective <span class="f f--k">Jan 1</span>. Currently with <span class="f f--k">Carrier Z</span>.</p>
+              <p>Contact is <span class="f f--p">Maria Lopez</span>, <span class="f f--p">619 555 0142</span>. Owner DOB <span class="f f--p">04/12/1978</span>.</p>
+              <span class="badge badge--pii">Personal info removed</span>
+            </div>
+            <div class="fields">
+              <div class="field"><span>Company</span><b>Harbor Tile Co.</b></div>
+              <div class="field"><span>Employees</span><b>42</b></div>
+              <div class="field"><span>Effective</span><b>Jan 1</b></div>
+              <div class="field"><span>Current carrier</span><b>Carrier Z</b></div>
+            </div>
+            <div class="crm">
+              <div class="crm__top"><b>CRM · New contact</b><span class="crm__ok">Created ✓</span></div>
+              <div class="crm__rows">
+                <div><span>Contact</span><b>Maria Lopez</b></div>
+                <div><span>Company</span><b>Harbor Tile Co.</b></div>
+                <div><span>Stage</span><b>New quote</b></div>
+              </div>
+              <span class="crm__note">Stays inside the agency</span>
+            </div>
+            <div class="out">
+              <div class="carriers">
+                <div class="carrier" style="--k:0">Carrier A <em>Sent ✓</em></div>
+                <div class="carrier" style="--k:1">Carrier B <em>Sent ✓</em></div>
+                <div class="carrier" style="--k:2">Carrier C <em>Sent ✓</em></div>
+                <div class="carrier" style="--k:3">Carrier D <em>Sent ✓</em></div>
+              </div>
+              <div class="report">
+                <span class="lbl">Comparison report</span>
+                <div class="bars">
+                  <div class="bar" style="--w:62%"><span>Carrier B</span><i></i><span>$412</span></div>
+                  <div class="bar" style="--w:74%"><span>Carrier A</span><i></i><span>$468</span></div>
+                  <div class="bar" style="--w:88%"><span>Carrier D</span><i></i><span>$530</span></div>
+                </div>
+                <span class="ready">Ready for review</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section id="problem" class="problem" aria-labelledby="problem-heading">
-    <h2 id="problem-heading">You can always make more money, but you can't always make more time.</h2>
-    <div class="problem-narrative reveal">
-      <h3>It adds up faster than you think.</h3>
-      <p>Just one hour a day on manual, repetitive work is 5 hours a week. That's 20 hours a month. Over a year, that's 250 hours, more than 6 full work weeks, spent on tasks that don't need a human. Imagine what you could do with that time reinvested into your business instead.</p>
-    </div>
-  </section>
-
-  <p class="section-bridge reveal">This is what I build software for, giving that time back.</p>
-
-  <section id="work" class="work" aria-labelledby="work-heading">
-    <h2 id="work-heading">Projects</h2>
-    <h3 class="project-title">RFP Intake Automation for an Insurance Agency</h3>
-    <p class="project-result reveal">What used to take about 30 minutes per case now takes about 5.</p>
-
-    <div class="workflow-diagram" aria-hidden="true">
-      <div class="workflow-row">
-        <div class="workflow-step">
-          <div class="workflow-node" data-node="1">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="5" width="18" height="14" rx="2"/>
-              <path d="M3 7l9 6 9-6"/>
-            </svg>
-          </div>
-          <p class="workflow-label">Email Intake</p>
-        </div>
-        <div class="workflow-connector"><span class="workflow-connector-fill"></span></div>
-        <div class="workflow-step">
-          <div class="workflow-node" data-node="2">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="7" y="7" width="10" height="10" rx="1.5"/>
-              <path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>
-            </svg>
-          </div>
-          <p class="workflow-label">AI Extraction</p>
-        </div>
-        <div class="workflow-connector"><span class="workflow-connector-fill"></span></div>
-        <div class="workflow-step">
-          <div class="workflow-node" data-node="3">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 2L11 13"/>
-              <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-            </svg>
-          </div>
-          <p class="workflow-label">Carrier Outreach</p>
-        </div>
-        <div class="workflow-connector"><span class="workflow-connector-fill"></span></div>
-        <div class="workflow-step">
-          <div class="workflow-node" data-node="4">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="4" y="3" width="16" height="18" rx="2"/>
-              <path d="M8 17v-4M12 17v-7M16 17v-2"/>
-            </svg>
-          </div>
-          <p class="workflow-label">Comparison Report</p>
+      <div class="how__steps">
+        <div class="step" data-step="1" data-clock="12"><span class="num">01 · Catch</span><h3>A broker email lands.</h3><p>The system is watching the inbox, so the request is picked up the second it arrives. Nobody has to check or forward anything.</p></div>
+        <div class="step" data-step="2" data-clock="96"><span class="num">02 · Read</span><h3>AI pulls out what matters.</h3><p>Company, employee count, start date, current carrier. Messy emails become clean, organized details.</p></div>
+        <div class="step" data-step="3" data-clock="138"><span class="num">03 · Organize</span><h3>A contact is created in the CRM.</h3><p>The client and their request are saved in the agency's CRM on their own, so the team can track every quote in one place.</p></div>
+        <div class="step" data-step="4" data-clock="186"><span class="num">04 · Protect</span><h3>Private info gets blacked out.</h3><p>Names, phone numbers and birthdays are removed automatically before anything leaves the agency.</p></div>
+        <div class="step" data-step="5" data-clock="292"><span class="num">05 · Deliver</span><h3>Carriers contacted. Report ready.</h3><p>Every carrier gets the request, and the team gets a side by side comparison to review. Under 5 minutes, start to finish.</p>
+          <div class="how__cta"><a class="pill pill--solid" href="#contact">Want this for your business?</a><span class="lbl">Built with JavaScript · Node.js · Gmail API · GoHighLevel · Redis</span></div>
         </div>
       </div>
     </div>
-
-    <div class="feature-cards">
-      <div class="feature-card reveal">
-        <h3>Automatic email intake</h3>
-        <p>The system reads incoming broker emails in real time and identifies exactly what's being requested, no manual sorting.</p>
+  </div>
+</section>
+<section class="case2" id="case2" aria-labelledby="c2-title">
+  <div class="case2__bg" aria-hidden="true">
+    <video id="storm-video" autoplay muted loop playsinline preload="metadata" poster="storm-poster.jpg"><source src="storm.mp4" type="video/mp4"></video>
+  </div>
+  <div class="case2__inner">
+    <div class="case2__copy">
+      <span class="lbl">Case 002 · RAG system · Oklahoma City Thunder</span>
+      <h2 id="c2-title">A RAG system that answers basketball questions, and shows its work.</h2>
+      <p class="okc">Built as a technical project for the <strong>Oklahoma City Thunder</strong>, part of their selection process for an internship.</p>
+      <p><strong>RAG</strong> means the AI looks things up in real data before it answers, instead of answering from memory. I built one for a full basketball season: <strong>800+ games</strong>, every player's stats, the game stories and the injury reports. You ask a question in plain English. It finds the answer and shows <strong>exactly where it came from</strong>. If the data can't answer, it says so instead of guessing.</p>
+      <ol class="think" aria-label="How it thinks">
+        <li><span class="lbl">01</span><b>Code finds the who and the when.</b><span class="d">Player names, teams and dates are matched exactly. Nothing is guessed.</span></li>
+        <li><span class="lbl">02</span><b>The database does the math.</b><span class="d">Adding, counting and sorting happen in code, so the numbers are always right.</span></li>
+        <li><span class="lbl">03</span><b>AI only reads the writing.</b><span class="d">It reads one injury note or one game story, then code double checks what it found.</span></li>
+      </ol>
+      <p class="why">Most AI chatbots guess at numbers. This one can't, because the AI never does the math.</p>
+      <div class="result">
+        <div><span class="lbl">Test questions right</span><b><s>1</s> → 11 of 11</b></div>
+        <div><span class="lbl">First version vs final</span></div>
       </div>
-      <div class="feature-card reveal">
-        <h3>AI-powered data extraction</h3>
-        <p>Key details, employer info, coverage requested, effective dates, are automatically pulled from unstructured emails and organized.</p>
-      </div>
-      <div class="feature-card reveal">
-        <h3>Secure data handling</h3>
-        <p>Sensitive employee information is automatically de-identified before being processed further.</p>
-      </div>
-      <div class="feature-card reveal">
-        <h3>Automated carrier outreach &amp; comparison</h3>
-        <p>The system reaches out to multiple carriers, then organizes their responses into a comparison report, ready for the broker.</p>
-      </div>
+      <span class="lbl">Python · PostgreSQL + pgvector · Docker · Ollama · FastAPI</span>
     </div>
-    <ul class="tag-row" aria-label="Technologies used">
-      <li class="tag">PYTHON</li>
-      <li class="tag">CLAUDE API</li>
-      <li class="tag">GMAIL API</li>
-      <li class="tag">SUPABASE</li>
-      <li class="tag">NODE.JS</li>
-      <li class="tag">EXPRESS</li>
-      <li class="tag">GOOGLE CLOUD PUB/SUB</li>
-      <li class="tag">GOHIGHLEVEL</li>
-      <li class="tag">GOOGLE SHEETS API</li>
-      <li class="tag">REST APIS</li>
-      <li class="tag">CRM INTEGRATION</li>
-      <li class="tag">JSON</li>
-      <li class="tag">DATA PARSING</li>
-      <li class="tag">DATA PIPELINE DESIGN</li>
+
+    <div class="screen rag" id="rag" role="img" aria-label="Animated example: a question goes in, the system finds, plans, calculates, and answers with its evidence">
+      <div class="screen__bar"><span>Sample question <b id="rag-n" style="color:var(--fg);font-weight:500">1/3</b></span><span>Evidence attached</span></div>
+      <div class="rag__body">
+        <div class="card rag__q"><span class="k">Question</span><p id="rag-q"></p></div>
+        <ol class="rag__steps" id="rag-steps"><li>01 Find</li><li>02 Plan</li><li>03 SQL math</li><li>04 Read text</li></ol>
+        <div class="card rag__a is-hid" id="rag-a"><span class="k">Answer</span><p class="big-a" id="rag-ans"></p><p class="note" id="rag-note" hidden></p><div class="ev" id="rag-ev"></div></div>
+      </div>
+      <div class="rag__foot"><span class="lbl">Real answers from the demo · names hidden</span><button class="case2__btn" type="button" id="storm-pause" aria-pressed="false">Pause video</button></div>
+    </div>
+  </div>
+</section>
+<section class="human" id="about" aria-labelledby="human-title">
+  <div class="human__media" aria-hidden="true">
+    <div class="human__frame">
+      <video class="human__video" id="human-video" autoplay muted loop playsinline preload="metadata" poster="human-poster.jpg"><source src="human.mp4" type="video/mp4"></video>
+      <div class="human__target"><span class="lbl">Subject: <b>Erick</b><br>Role: <b>Builder</b></span></div>
+    </div>
+  </div>
+  <div class="human__rec lbl"><span class="human__recdot"></span>Rec · San Diego · <span id="sd-clock">late</span></div>
+  <div class="human__copy">
+    <span class="lbl">About · Meet the human</span>
+    <h2 id="human-title">Built the way I trained: every day, on real games.</h2>
+    <p>I'm Erick, a student finishing a degree in Web and App Development with a focus on AI Automation.</p>
+    <p>Most of what I know I learned by building for real clients. I speak English and Spanish and work with businesses on both sides of the border.</p>
+    <ul class="facts">
+      <li><span class="lbl">Focus</span><span>Automation and AI systems</span></li>
+      <li><span class="lbl">Education</span><span>B.S. Web and App Development</span></li>
+      <li><span class="lbl">Certificates</span><span>Applied Data Analytics · Business Foundations of IT</span></li>
+      <li><span class="lbl">Languages</span><span>English · Spanish</span></li>
     </ul>
-  </section>
-
-  <section id="skills" class="skills" aria-labelledby="skills-heading">
-    <h2 id="skills-heading">Skills</h2>
-    <div class="skills-grid">
-      <div class="skill-card reveal">
-        <h3>Automation</h3>
-        <p>WORKFLOW DESIGN</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>APIs</h3>
-        <p>INTEGRATION</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Data</h3>
-        <p>PIPELINES + DATABASES</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Systems</h3>
-        <p>ARCHITECTURE</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Secure Data Handling</h3>
-        <p>DE-IDENTIFICATION, PII PROTECTION</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>AI Integration</h3>
-        <p>LLM-POWERED DATA EXTRACTION</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Real-Time Processing</h3>
-        <p>EMAIL TRIGGERS, EVENT-DRIVEN SYSTEMS</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>CRM &amp; Business Tool Integration</h3>
-        <p>CONNECTING AUTOMATION TO THE TOOLS BUSINESSES ALREADY USE</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Client Communication</h3>
-        <p>TRANSLATING BUSINESS NEEDS INTO WORKING SYSTEMS</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>AI-Powered Automation</h3>
-        <p>INTELLIGENT PROCESS AUTOMATION</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Custom Automation with AI/LLM Integration</h3>
-        <p>TAILORED AI-DRIVEN WORKFLOWS</p>
-      </div>
-      <div class="skill-card reveal">
-        <h3>Document Processing</h3>
-        <p>PARSING, EXTRACTION, STRUCTURING</p>
-      </div>
+  </div>
+  <div class="human__controls"><button class="human__btn" type="button" id="human-sound" aria-pressed="false"><span class="human__eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="human-sound-label">Sound on</span></button><button class="human__btn" type="button" id="human-pause" aria-pressed="false">Pause video</button></div>
+</section>
+<section class="bball" id="baseball" aria-labelledby="bball-title">
+  <div class="bball__bg"><img src="baseball.jpg" alt="Erick, number 33, on deck at sunset in a red college uniform" loading="lazy"></div>
+  <div class="bball__inner">
+    <div class="bball__copy">
+      <span class="lbl">Before code · The field</span>
+      <h2 id="bball-title">Five years of college baseball.</h2>
+      <p>Before I built software, I played at three schools across three levels of college baseball. It's where I learned to show up every day, put in the reps and perform when it counts. I bring the same habits to every project.</p>
+      <ol class="career" aria-label="College baseball career, in order">
+        <li><span class="lbl">01</span><b>Trinidad State</b><span class="yrs">2 seasons</span><span class="d">NJCAA junior college · Colorado</span><span class="aa">NJCAA Third Team All-American · 2022</span></li>
+        <li><span class="lbl">02</span><b>Nicholls State</b><span class="yrs">2 seasons</span><span class="d">NCAA Division I · Louisiana</span></li>
+        <li><span class="lbl">03</span><b>Fort Hays State</b><span class="yrs">1 season</span><span class="d">NCAA Division II · Kansas</span></li>
+      </ol>
+      <div class="bball__stats"><div><span class="lbl">Seasons</span><b>5</b></div><div><span class="lbl">Programs</span><b>3</b></div><div><span class="lbl">Number</span><b>33</b></div></div>
     </div>
-  </section>
-
-  <section id="about" class="about" aria-labelledby="about-heading">
-    <h2 id="about-heading">A bit about me</h2>
-    <p class="about-body">I'm a student finishing my degree in web/app development at Fort Hays State University. Before that, I played college baseball at Trinidad State Junior College in Colorado (NJCAA All-American) and Nicholls State University in Louisiana, where our team made it to regionals. I'm largely self-taught, having built most of my real technical skill through actual client work rather than just coursework, learning by solving real problems for real businesses. My athletic background taught me discipline and how to push through hard, unglamorous work, something that's translated directly into how I approach building software.</p>
-
-    <div class="about-photos">
-      <div class="about-photo-wrap">
-        <img class="about-photo about-photo-1" src="assets/about_photo_1_cropped.png" alt="Erick Ordonez at bat during a college baseball game">
+    <div class="bball__side">
+      <div class="reel">
+        <video id="reel" muted playsinline autoplay preload="metadata" poster="bb1-poster.jpg" aria-label="Game highlights of Erick playing for Nicholls State"></video>
+        <div class="reel__cap"><span id="reel-cap">Nicholls State vs LSU</span><span class="reel__dots" aria-hidden="true"><i class="on"></i><i></i></span><button class="reel__btn" type="button" id="reel-pause" aria-pressed="false">Pause</button></div>
       </div>
-      <div class="about-photo-wrap">
-        <img class="about-photo about-photo-2" src="assets/about_photo_2_cropped.png" alt="Erick Ordonez pitching during a college baseball game">
-      </div>
-      <div class="about-photo-wrap">
-        <img class="about-photo about-photo-3" src="assets/about_photo_3_cropped.png" alt="Erick Ordonez mid-swing during a college baseball game">
-      </div>
+      <span class="lbl">Game highlights · Nicholls State</span>
     </div>
-  </section>
-
-  <section id="contact" class="contact" aria-labelledby="contact-heading">
-    <div class="contact-glow" aria-hidden="true"></div>
-    <h2 id="contact-heading">Let's talk.</h2>
-    <div class="contact-links">
-      <a class="contact-item" href="tel:+16196365941">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M4 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L14 13l5 2v4a2 2 0 0 1-2 2C9.5 21 3 14.5 3 6a2 2 0 0 1 1-2z"/>
-        </svg>
-        619-636-5941
-      </a>
-      <a class="contact-item" href="mailto:eordonezantuna@hotmail.com">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="5" width="18" height="14" rx="2"/>
-          <path d="M3 7l9 6 9-6"/>
-        </svg>
-        eordonezantuna@hotmail.com
-      </a>
-      <a class="contact-item" href="https://linkedin.com/in/erick-ordonez" target="_blank" rel="noopener noreferrer">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="18" height="18" rx="3"/>
-          <path d="M7 10v7M7 7v.01M11 17v-4.5a2 2 0 0 1 4 0V17M11 12.5V17"/>
-        </svg>
-        linkedin.com/in/erick-ordonez
-      </a>
+  </div>
+</section>
+<section class="svc" id="services" aria-labelledby="svc-title">
+  <div class="svc__inner">
+    <div class="svc__head">
+      <div><span class="lbl">Services · What I can build for you</span><h2 id="svc-title">Less busywork.<br>More business.</h2></div>
+      <p>I build custom software around how your business already works. No templates, no bloated tools, and nothing you have to change your day for.</p>
     </div>
-  </section>
+    <ul class="svc__list">
+      <li class="svc__row"><span class="lbl">01</span><h3>AI Automation</h3><p>Your repetitive tasks run on their own: reading emails, filling your CRM, sending requests and follow ups.</p><a class="tag" href="#work">See Case 001</a></li>
+      <li class="svc__row"><span class="lbl">02</span><h3>Systems that know your data</h3><p>Ask your own documents and records a question and get an answer with its sources. No guessing, no made up numbers.</p><a class="tag" href="#case2">See Case 002</a></li>
+      <li class="svc__row"><span class="lbl">03</span><h3>Web &amp; App Development</h3><p>Websites and apps that look sharp, load fast and work on every screen, like the one you're on.</p><span class="tag">This site</span></li>
+      <li class="svc__row"><span class="lbl">04</span><h3>Backend &amp; Integrations</h3><p>Your tools finally talking to each other: CRMs, email, spreadsheets, databases and APIs, connected safely.</p><a class="tag" href="#work">See Case 001</a></li>
+    </ul>
+    <ol class="steps4 steps4-wrap" aria-label="How working together goes">
+      <li><span class="lbl">Step 1</span><b>Free call</b><span class="d">20 minutes. You tell me what eats your week.</span></li>
+      <li><span class="lbl">Step 2</span><b>Plan &amp; quote</b><span class="d">A clear plan and a clear price. No surprises.</span></li>
+      <li><span class="lbl">Step 3</span><b>Build &amp; test</b><span class="d">I build it around your real work and test it on real cases.</span></li>
+      <li><span class="lbl">Step 4</span><b>Launch &amp; support</b><span class="d">It goes live, and I stay around to keep it running.</span></li>
+    </ol>
+  </div>
+</section>
 
-</main>
+<section class="contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact__inner">
+    <div>
+      <span class="lbl">Contact</span>
+      <h2 id="contact-title">Tell me what eats your week.</h2>
+      <p>A 20 minute call is enough to find out if software can save you time. English or Spanish, no jargon.</p>
+      <div class="cta"><a class="pill pill--solid" href="mailto:eordonezantuna@hotmail.com?subject=Let%27s%20talk%20about%20a%20project">Book a call</a><button class="pill" type="button" data-open-chat>Ask Friday first</button></div>
+    </div>
+    <div class="rows">
+      <div class="row"><span class="lbl">Email</span><span class="v" id="c-em">eordonezantuna@hotmail.com</span><button class="copy" type="button" data-copy="c-em" id="copy-em">Copy</button></div>
+      <div class="row"><span class="lbl">Phone</span><span class="v" id="c-ph">619 636 5941</span><button class="copy" type="button" data-copy="c-ph" id="copy-ph">Copy</button></div>
+      <div class="row"><span class="lbl">LinkedIn</span><a class="v" href="https://www.linkedin.com/in/erick-ordonez" target="_blank" rel="noopener">in/erick-ordonez ↗</a></div>
+      <div class="row"><span class="lbl">Based in</span><span class="v">San Diego · Tijuana</span></div>
+    </div>
+  </div>
+  <div class="foot2"><span class="lbl">© 2026 Erick Ordonez</span><span class="lbl">Designed and built by Erick · Friday on duty</span></div>
+</section>
 
-<footer class="site-footer">
-  <p>&copy; 2026 Erick Ordonez.</p>
-</footer>
+<button class="askf" type="button" id="askf" data-open-chat aria-label="Chat with Friday"><span class="askf__face" aria-hidden="true"></span>Ask Friday</button>
+<section class="chat" id="chat" role="dialog" aria-label="Chat with Friday" hidden>
+  <div class="chat__bar"><div><b>Friday</b><span class="lbl">Erick's AI assistant</span></div><button class="chat__x" type="button" id="chat-x" aria-label="Close chat">×</button></div>
+  <div class="chat__log" id="chat-log" aria-live="polite"></div>
+  <div class="chat__foot">
+    <form class="chat__form" id="chat-form"><label for="chat-in" class="sr">Message Friday</label><input class="chat__in" id="chat-in" maxlength="500" autocomplete="off" placeholder="Ask about Erick's work"><button class="chat__send" id="chat-send" type="submit">Send</button></form>
+    <p class="chat__note">Friday is an AI and can get things wrong. For anything important, email Erick.</p>
+  </div>
+</section>
 
-<script src="js/main.js?v=6"></script>
+
+
+
+<script type="module">
+const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hero = document.querySelector('.hero');
+
+/* ---------- words: unfold letter by letter, then a glint every 30 seconds ---------- */
+function split(el) {
+  const text = el.textContent;
+  el.textContent = '';
+  [...text].forEach((c, i) => {
+    if (c === ' ') { el.append(' '); return; }
+    const s = document.createElement('span'); s.className = 'ch'; s.style.setProperty('--i', i); s.textContent = c; el.append(s);
+  });
+  el.dataset.text = text;
+}
+function unfold(el, delay = 0) {
+  if (still) return;
+  el.style.setProperty('--d', delay + 'ms');
+  el.classList.remove('play', 'is-hidden'); void el.offsetWidth; el.classList.add('play');
+}
+function shine(el) {
+  if (still) return;
+  el.classList.remove('shine'); void el.offsetWidth; el.classList.add('shine');
+}
+const words = [...document.querySelectorAll('.word')];
+const role = document.getElementById('role');
+[...words, role].forEach((el) => { split(el); if (!still) el.classList.add('is-hidden'); });
+
+function intro() {
+  unfold(words[0], 0); unfold(words[1], 260); unfold(role, 520);
+  setTimeout(() => words.forEach(shine), 2200);
+}
+intro();
+words.forEach((w) => w.addEventListener('click', intro));
+setInterval(() => { if (!document.hidden) { words.forEach(shine); shine(role); } }, 30000);
+
+// the role line swaps every few seconds, unfolding each new title
+const ROLES = ['AI-Powered Automations', 'Full-Stack Web Applications', 'API & Systems Integrations', 'Custom Business Tools'];
+let r = 0;
+setInterval(() => {
+  if (still || document.hidden) return;
+  r = (r + 1) % ROLES.length;
+  role.textContent = ROLES[r]; split(role); unfold(role);
+}, 12000);
+
+/* ---------- Friday ---------- */
+const canvas = document.getElementById('stage');
+const boot = document.getElementById('boot');
+const status = document.getElementById('status');
+let app = null, head = null, base = null;
+
+async function loadFriday() {
+  const { Application } = await import('./sp2/runtime.js');
+  app = new Application(canvas);
+  const { default: b64 } = await import('./scene.js');
+  const bin = Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+  await app.start(bin.buffer, { interactive: false }); // Spline's own mouse reactions off, so only our hover code moves the head
+  try { app.setBackgroundColor('rgba(0,0,0,0)'); } catch (e) {}
+  // no slime: switch off the liquid pieces that came with the scene
+  const SLIME = ['Shape Blend', 'followsec', 'follow', 'second', 'Sphere'];
+  app.getAllObjects().forEach((o) => { if (SLIME.includes(o.name)) o.visible = false; });
+  head = app.getAllObjects().find((o) => o.name === 'head');
+  if (head) base = { x: head.rotation.x, y: head.rotation.y };
+  await new Promise((res) => requestAnimationFrame(() => requestAnimationFrame(res)));
+}
+loadFriday().then(() => {
+  canvas.classList.add('is-ready'); boot.classList.add('is-done');
+  if (!still && head) follow();
+}).catch(() => { boot.textContent = 'Friday is offline right now'; });
+
+// size Friday to the screen so he never covers the words
+const wrap = document.querySelector('.stagewrap');
+function fitFriday() {
+  if (hero.clientWidth < 760) return;
+  const s = Math.min(0.95, (hero.clientHeight * 0.74) / 660, (hero.clientWidth * 0.38) / 400);
+  wrap.style.setProperty('--fs', s.toFixed(3));
+}
+fitFriday(); addEventListener('resize', fitFriday);
+
+// head follows the cursor only while you hover over him, then eases back to rest
+let tx = 0, ty = 0, cx = 0, cy = 0, awake = false;
+hero.addEventListener('pointermove', (e) => {
+  const box = canvas.getBoundingClientRect();
+  const midX = box.left + box.width / 2, headY = box.top + box.height * 0.28;
+  const over = Math.abs(e.clientX - midX) < box.width * 0.3 && e.clientY > box.top + box.height * 0.08;
+  awake = over;
+  hero.classList.toggle('is-awake', over);
+  status.textContent = over ? 'Watching you' : 'Hover me';
+  tx = over ? Math.max(-1, Math.min(1, (e.clientX - midX) / 320)) : 0;
+  ty = over ? Math.max(-1, Math.min(1, (e.clientY - headY) / 320)) : 0;
+}, { passive: true });
+hero.addEventListener('pointerleave', () => { awake = false; tx = ty = 0; hero.classList.remove('is-awake'); status.textContent = 'Hover me'; });
+
+function follow() {
+  const nx = cx + (tx - cx) * 0.08, ny = cy + (ty - cy) * 0.08;
+  if (Math.abs(nx - cx) + Math.abs(ny - cy) > 0.0004) {   // only redraw while the head is actually moving
+    cx = nx; cy = ny;
+    head.rotation.y = base.y + cx * 0.9;
+    head.rotation.x = base.x + cy * 0.3;
+    try { app.requestRender(); } catch (e) {}
+  }
+  requestAnimationFrame(follow);
+}
+
+// pause the 3D when the hero is off screen so laptops stay cool
+new IntersectionObserver(([e]) => {
+  if (!app || still) return;
+  e.isIntersecting ? app.play() : app.stop();
+}).observe(hero);
+
+/* ---------- work: big number unfolds, the screen follows the steps ---------- */
+const big = document.getElementById('big');
+if (big && !still) {
+  big.classList.add('is-hidden');
+  big.querySelectorAll('s').forEach(() => {});
+  // split only the text nodes, keep the crossed out 30
+  const parts = [...big.childNodes]; big.textContent = ''; let i = 0;
+  parts.forEach((n) => {
+    const holder = n.nodeType === 1 ? document.createElement(n.tagName) : big;
+    [...n.textContent].forEach((c) => {
+      if (c === ' ') { holder.append(' '); return; }
+      const s = document.createElement('span'); s.className = 'ch'; s.style.setProperty('--i', i++); s.textContent = c; holder.append(s);
+    });
+    if (holder !== big) big.append(holder);
+  });
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { unfold(big); o.disconnect(); } }, { threshold: 0.6 }).observe(big);
+}
+
+const screen = document.getElementById('screen');
+const clockEl = document.getElementById('clock');
+let shown = 0, target = 0, tick = 0;
+const fmt = (s) => String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+function runClock() {
+  cancelAnimationFrame(tick);
+  const step = () => {
+    shown += (target - shown) * (still ? 1 : 0.06);
+    if (Math.abs(target - shown) < 0.5) shown = target;
+    clockEl.textContent = fmt(shown);
+    if (shown !== target) tick = requestAnimationFrame(step);
+  };
+  step();
+}
+const steps = [...document.querySelectorAll('.step')];
+const io = new IntersectionObserver((entries) => {
+  entries.forEach((e) => {
+    if (!e.isIntersecting) return;
+    steps.forEach((s) => s.classList.toggle('is-on', s === e.target));
+    screen.dataset.step = e.target.dataset.step;
+    target = +e.target.dataset.clock; runClock();
+  });
+}, { rootMargin: '-45% 0px -45% 0px' });
+steps.forEach((s) => io.observe(s));
+
+/* ---------- case 002: storm video + the demo chat plays out ---------- */
+const sv = document.getElementById('storm-video'), sp = document.getElementById('storm-pause');
+function stormPlay(on) { if (on) { const p = sv.play(); if (p && p.catch) p.catch(() => {}); } else sv.pause(); sp.textContent = on ? 'Pause video' : 'Play video'; sp.setAttribute('aria-pressed', on ? 'false' : 'true'); }
+if (still) { sv.removeAttribute('autoplay'); stormPlay(false); }
+sp.addEventListener('click', () => stormPlay(sv.paused));
+
+const QA = [
+  { q: 'Who led the team in scoring in their April 5 loss, and how many points did he score?',
+    a: '<span class="redact">Player name</span> scored 23 points.', read: false,
+    ev: [['games', '1 row'], ['box scores', '1 row']] },
+  { q: 'How many points did this player score after the break?',
+    a: '557 points across 19 games.', read: false,
+    ev: [['games', '19 rows'], ['box scores', '19 rows']] },
+  { q: 'How many points did his teammate score in the season opener?',
+    a: 'No confident answer.', note: "He didn't play that night. A teammate with a name one letter apart did, and the system won't mix them up.", read: false,
+    ev: [['records checked', '5'], ['stat line for this player', 'none']] }
+];
+const $ = (id) => document.getElementById(id);
+const stepsEl = [...$('rag-steps').children];
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+function paint(item, k) {
+  $('rag-n').textContent = (k + 1) + '/' + QA.length;
+  $('rag-q').textContent = item.q;
+  $('rag-ans').innerHTML = item.a;
+  const n = $('rag-note'); n.hidden = !item.note; n.textContent = item.note || '';
+  $('rag-ev').innerHTML = item.ev.map(([a, b]) => '<div><span>Evidence · ' + a + '</span><b>' + b + '</b></div>').join('');
+}
+let ragRunning = false;
+async function runRag() {
+  if (ragRunning) return; ragRunning = true;
+  let k = 0;
+  while (true) {
+    const item = QA[k];
+    $('rag-a').classList.add('is-hid'); stepsEl.forEach((li) => li.className = '');
+    await wait(350); paint(item, k);
+    for (let i = 0; i < stepsEl.length; i++) {
+      if (i === 3 && !item.read) { stepsEl[i].className = 'skip'; continue; }
+      stepsEl[i].className = 'on'; await wait(650); stepsEl[i].className = 'done';
+    }
+    $('rag-a').classList.remove('is-hid');
+    await wait(4200);
+    k = (k + 1) % QA.length;
+  }
+}
+if (still) { paint(QA[0], 0); $('rag-a').classList.remove('is-hid'); stepsEl.forEach((li, i) => li.className = i === 3 ? 'skip' : 'done'); }
+else new IntersectionObserver(([e], o) => { if (e.isIntersecting) { runRag(); o.disconnect(); } }, { threshold: 0.3 }).observe($('rag'));
+
+/* ---------- meet the human: video, clock, original ambient score ---------- */
+(function(){
+  /* ---- meet the human video ---- */
+  var hv=document.getElementById('human-video'),hp=document.getElementById('human-pause');
+  function setPlay(on){ if(on){var p=hv.play();if(p&&p.catch)p.catch(function(){});} else hv.pause(); hp.textContent=on?'Pause video':'Play video'; hp.setAttribute('aria-pressed',on?'false':'true'); }
+  var reduce=false;try{reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;}catch(e){}
+  if(reduce){hv.removeAttribute('autoplay');setPlay(false);}
+  hp.addEventListener('click',function(){setPlay(hv.paused);});
+  function tick(){try{document.getElementById('sd-clock').textContent=new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/Los_Angeles'});}catch(e){}}
+  tick();setInterval(tick,30000);
+
+
+  /* ---- original ambient score (made in code, no audio file) ---- */
+  var Score=(function(){
+    var ctx=null,master=null,verb=null,timer=0,step=0,on=false;
+    // Slow, spacious progression in D minor: Dm(add9) · Bbmaj7 · F/A · C(sus2)
+    var CHORDS=[[38,50,57,62,64],[34,46,53,57,62],[33,45,53,57,60],[36,48,55,60,62]];
+    var hz=function(m){return 440*Math.pow(2,(m-69)/12);};
+    function impulse(sec){
+      var len=ctx.sampleRate*sec,buf=ctx.createBuffer(2,len,ctx.sampleRate);
+      for(var c=0;c<2;c++){var d=buf.getChannelData(c);for(var i=0;i<len;i++)d[i]=(Math.random()*2-1)*Math.pow(1-i/len,2.6);}
+      return buf;
+    }
+    function init(){
+      var AC=window.AudioContext||window.webkitAudioContext; if(!AC) return false;
+      ctx=new AC(); master=ctx.createGain(); master.gain.value=0;
+      var comp=ctx.createDynamicsCompressor(); master.connect(comp); comp.connect(ctx.destination);
+      verb=ctx.createConvolver(); verb.buffer=impulse(6); var wet=ctx.createGain(); wet.gain.value=.55; verb.connect(wet); wet.connect(master);
+      return true;
+    }
+    // organ-like voice: a few soft harmonics, slow swell
+    function organ(m,t,dur,vol){
+      var g=ctx.createGain(),lp=ctx.createBiquadFilter(); lp.type='lowpass'; lp.frequency.value=1400;
+      g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(vol,t+dur*.35); g.gain.linearRampToValueAtTime(vol*.8,t+dur*.8); g.gain.linearRampToValueAtTime(0,t+dur+1.5);
+      [[1,1],[2,.45],[3,.18],[4,.12]].forEach(function(h){
+        var o=ctx.createOscillator(),og=ctx.createGain(); o.type='sine'; o.frequency.value=hz(m)*h[0]; o.detune.value=(Math.random()-.5)*6;
+        og.gain.value=h[1]; o.connect(og); og.connect(lp); o.start(t); o.stop(t+dur+1.6);
+      });
+      lp.connect(g); g.connect(master); g.connect(verb);
+    }
+    // high glassy notes that drift over the chords
+    function bell(m,t){
+      var o=ctx.createOscillator(),g=ctx.createGain(); o.type='triangle'; o.frequency.value=hz(m);
+      g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(.035,t+.02); g.gain.exponentialRampToValueAtTime(.0001,t+3.2);
+      o.connect(g); g.connect(verb); g.connect(master); o.start(t); o.stop(t+3.3);
+    }
+    var BAR=8;
+    function schedule(){
+      var t=ctx.currentTime+.1,ch=CHORDS[step%CHORDS.length];
+      ch.forEach(function(m,i){organ(m,t,BAR,i===0?.07:.045);});
+      var pool=ch.slice(2).map(function(m){return m+12;});
+      for(var k=0;k<6;k++){ if(Math.random()<.75) bell(pool[Math.floor(Math.random()*pool.length)],t+k*(BAR/6)+Math.random()*.2); }
+      step++;
+    }
+    function start(){
+      if(!ctx&&!init()) return false;
+      if(ctx.state==='suspended') ctx.resume();
+      on=true; schedule(); clearInterval(timer); timer=setInterval(schedule,BAR*1000);
+      master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(.9,ctx.currentTime,1.2);
+      return true;
+    }
+    function stop(){
+      if(!ctx) return; on=false; clearInterval(timer);
+      master.gain.cancelScheduledValues(ctx.currentTime); master.gain.setTargetAtTime(0,ctx.currentTime,.5);
+    }
+    return {start:start,stop:stop,isOn:function(){return on;}};
+  })();
+  var sb=document.getElementById('human-sound'),sl=document.getElementById('human-sound-label');
+  sb.addEventListener('click',function(){
+    if(Score.isOn()){Score.stop();sb.setAttribute('aria-pressed','false');sl.textContent='Sound on';}
+    else if(Score.start()){sb.setAttribute('aria-pressed','true');sl.textContent='Sound off';}
+    else {sl.textContent='No sound here';}
+  });
+  document.addEventListener('visibilitychange',function(){ if(document.hidden&&Score.isOn()){Score.stop();sb.setAttribute('aria-pressed','false');sl.textContent='Sound on';} });
+
+})();
+
+/* ---------- Friday chat ---------- */
+(function () {
+  const API = '/api/friday';
+  const chat = document.getElementById('chat'), log = document.getElementById('chat-log'), form = document.getElementById('chat-form');
+  const input = document.getElementById('chat-in'), send = document.getElementById('chat-send'), askf = document.getElementById('askf');
+  const history = []; let busy = false, started = false;
+  const STARTERS = ['What does Erick build?', 'Explain the insurance project', "What's a RAG system?", 'How much does a project cost?', '¿Hablas español?', 'How do I book a call?'];
+  const DEMO = {
+    'What does Erick build?': 'Erick builds software that takes repetitive work off a business\'s plate: AI automation, AI that answers from your own data, websites and apps, and connections between your tools like CRMs, email and spreadsheets.',
+    'Explain the insurance project': 'An insurance agency spent about 30 minutes on every quote request. Erick built a system that reads broker emails as they arrive, pulls out the details with AI, creates the contact in their CRM, removes private info, and sends the request to carriers with a comparison report. Now it takes about 5 minutes.',
+    "What's a RAG system?": 'RAG means the AI looks things up in real data before it answers, instead of answering from memory. Erick built one for a basketball season with 800+ games: code does the math, AI only reads the text, and every answer shows its evidence.',
+    'How much does a project cost?': 'It depends on what you need. Erick gives a clear quote after a free 20 minute call. You can email him at eordonezantuna@hotmail.com.',
+    '¿Hablas español?': '¡Claro! Erick es bilingüe y trabaja con negocios en San Diego y Tijuana. Pregúntame lo que quieras en español.',
+    'How do I book a call?': 'Email Erick at eordonezantuna@hotmail.com or call 619 636 5941. A 20 minute call is enough to see if software can save you time.'
+  };
+  function add(role, text) {
+    const d = document.createElement('div'); d.className = 'cm cm--' + (role === 'user' ? 'u' : 'f');
+    if (role !== 'user') { const k = document.createElement('span'); k.className = 'k'; k.textContent = 'Friday'; d.append(k); }
+    const t = document.createElement('span'); t.textContent = text; d.append(t);
+    log.append(d); log.scrollTop = log.scrollHeight; return t;
+  }
+  function chips() {
+    const w = document.createElement('div'); w.className = 'chips'; w.id = 'chips';
+    STARTERS.forEach((q) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'chip'; b.textContent = q; b.onclick = () => ask(q); w.append(b); });
+    log.append(w);
+  }
+  function open() {
+    chat.hidden = false; askf.classList.remove('show');
+    if (!started) { started = true; add('f', "Hi, I'm Friday. Ask me about Erick's work, how he can help your business, or how to reach him."); chips(); }
+    setTimeout(() => input.focus(), 50);
+  }
+  function close() { chat.hidden = true; askf.classList.toggle('show', pastHero); }
+  document.getElementById('chat-x').onclick = close;
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !chat.hidden) close(); });
+  document.querySelectorAll('[data-open-chat], a[href="#chat"]').forEach((b) => b.addEventListener('click', (e) => { e.preventDefault(); open(); }));
+  function typeInto(el, text) { let i = 0; (function step() { i += 3; el.textContent = text.slice(0, i); log.scrollTop = log.scrollHeight; if (i < text.length) setTimeout(step, 16); })(); }
+  async function ask(q) {
+    q = String(q || '').trim().slice(0, 500); if (!q || busy) return;
+    const c = document.getElementById('chips'); if (c) c.remove();
+    add('user', q); history.push({ role: 'user', content: q });
+    busy = true; send.disabled = true;
+    const t = document.createElement('div'); t.className = 'cm cm--t'; t.textContent = 'Friday is typing…'; log.append(t);
+    let reply;
+    try {
+      const r = await fetch(API, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-12) }) });
+      const j = await r.json(); if (!r.ok) throw new Error(j.error || 'offline'); reply = j.reply;
+    } catch (err) {
+      reply = DEMO[q] || "My AI brain isn't connected on this preview. On erickordonez.com I can answer anything about Erick. For now, try one of the suggested questions, or email eordonezantuna@hotmail.com.";
+    }
+    t.remove(); history.push({ role: 'assistant', content: reply });
+    const el = add('f', ''); still ? (el.textContent = reply) : typeInto(el, reply);
+    busy = false; send.disabled = false; input.focus();
+  }
+  form.addEventListener('submit', (e) => { e.preventDefault(); const q = input.value; input.value = ''; ask(q); });
+  let pastHero = false;
+  new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; if (chat.hidden) askf.classList.toggle('show', pastHero); }, { threshold: 0.2 }).observe(document.querySelector('.hero'));
+  // copy buttons
+  document.querySelectorAll('.copy').forEach((b) => b.addEventListener('click', () => {
+    const el = document.getElementById(b.dataset.copy), txt = el.textContent;
+    const sel = () => { const r = document.createRange(); r.selectNodeContents(el); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = 'Selected'; };
+    try { navigator.clipboard.writeText(txt).then(() => { b.textContent = 'Copied'; }, sel); } catch (e) { sel(); }
+    setTimeout(() => { b.textContent = 'Copy'; }, 2000);
+  }));
+})();
+
+/* ---------- baseball: highlight reel plays clip 1, then clip 2, then repeats ---------- */
+(function () {
+  const v = document.getElementById('reel'), cap = document.getElementById('reel-cap'), btn = document.getElementById('reel-pause');
+  const dots = [...document.querySelectorAll('.reel__dots i')];
+  const CLIPS = [{ src: 'bb1.mp4', cap: 'Nicholls State vs LSU' }, { src: 'bb2.mp4', cap: 'Nicholls State vs LA Tech' }];
+  let i = 0, paused = still;
+  function load(k) { i = k; v.src = CLIPS[k].src; cap.textContent = CLIPS[k].cap; dots.forEach((d, j) => d.classList.toggle('on', j === k)); if (!paused) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } }
+  v.addEventListener('ended', () => load((i + 1) % CLIPS.length));
+  btn.addEventListener('click', () => { paused = !paused; if (paused) v.pause(); else { const p = v.play(); if (p && p.catch) p.catch(() => {}); } btn.textContent = paused ? 'Play' : 'Pause'; btn.setAttribute('aria-pressed', paused ? 'true' : 'false'); });
+  if (still) { v.removeAttribute('autoplay'); btn.textContent = 'Play'; btn.setAttribute('aria-pressed', 'true'); }
+  // only start downloading the clips when the section is close
+  new IntersectionObserver(([e], o) => { if (e.isIntersecting) { load(0); o.disconnect(); } }, { rootMargin: '300px' }).observe(v);
+})();
+</script>
+
 </body>
 </html>
